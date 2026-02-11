@@ -54,27 +54,27 @@ http://localhost:9000
 ### Signup
 Create a new account to get started.
 
-![Signup Page](./signup.png)
+![Signup Page](./screenshots/signup.png)
 
 ### Login
 Sign in with your credentials.
 
-![Login Page](./signin.png)
+![Login Page](./screenshots/signin.png)
 
 ### Group Chat
 Join a chat room and communicate with multiple users in real-time. You can see all users currently in the room and view their typing status.
 
-![Live Chat Interface](./livechat.png)
+![Live Chat Interface](./screenshots/livechat.png)
 
 ### Private Messaging
 Send direct messages to other online users. Only the recipient can see these private conversations.
 
-![Private Message Feature](./private_message.png)
+![Private Message Feature](./screenshots/private_message.png)
 
 ### Logout
 Safely disconnect from the application.
 
-![Logout Functionality](./logout.png)
+![Logout Functionality](./screenshots/logout.png)
 
 ## Database Structure
 
@@ -96,7 +96,7 @@ Safely disconnect from the application.
 - message
 - date_sent
 
-![MongoDB Database](./mongo.png)
+![MongoDB Database](./screenshots/mongo.png)
 
 ## Architecture
 
