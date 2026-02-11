@@ -1,0 +1,22 @@
+{
+  "name": "comp3133-lab1",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["chat", "socket.io", "mongodb"],
+  "author": "101488823",
+  "license": "ISC",
+  "description": "Real-time chat application with Socket.io and MongoDB",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1",
+    "socket.io": "^4.8.3"
+  }
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ChatConnect</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#6366f1",
+            "accent": "#ec4899",
+            "background-dark": "#0f172a",
+          },
+          fontFamily: {
+            "serif": ["Playfair Display", "serif"],
+            "sans": ["Inter", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply font-sans antialiased bg-slate-50 dark:bg-background-dark;
+      }
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .organic-blob {
+      filter: blur(80px);
+      z-index: -1;
+    }
+    .tactile-button {
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3), 0 4px 6px -4px rgba(99, 102, 241, 0.3);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tactile-button:active {
+      transform: scale(0.97);
+      box-shadow: 0 5px 10px -3px rgba(99, 102, 241, 0.4);
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6 overflow-hidden relative">
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="organic-blob absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full"></div>
+    <div class="organic-blob absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-accent/20 rounded-full"></div>
+    <div class="organic-blob absolute top-[20%] right-[-5%] w-[300px] h-[300px] bg-blue-400/10 rounded-full"></div>
+  </div>
+
+  <div class="w-full max-w-[390px] relative">
+    <div class="glass-card rounded-[40px] p-8 shadow-2xl">
+      <div class="text-center mb-10">
+        <div class="w-16 h-16 mx-auto mb-6 relative">
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-2xl rotate-6 opacity-20"></div>
+          <div class="relative bg-white dark:bg-slate-800 w-full h-full rounded-2xl shadow-sm flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-3xl">bubble_chart</span>
+          </div>
+        </div>
+        <h1 class="font-serif text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-3 italic">Welcome</h1>
+        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Sign in to your private workspace</p>
+      </div>
+
+      <div id="errorMessage" class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-2xl text-red-700 dark:text-red-400 text-sm hidden"></div>
+      <div id="successMessage" class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-2xl text-green-700 dark:text-green-400 text-sm hidden"></div>
+
+      <form id="loginForm" class="space-y-6">
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-1" for="username">Username</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-slate-400 text-xl">alternate_email</span>
+            </div>
+            <input class="w-full h-14 pl-12 pr-4 bg-white/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-slate-900 dark:text-white placeholder:text-slate-400" id="username" name="username" placeholder="johndoe" type="text" required>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center px-1">
+            <label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500" for="password">Password</label>
+            <a class="text-[11px] font-bold uppercase tracking-widest text-primary hover:text-accent transition-colors" href="signup.html">New here?</a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-slate-400 text-xl">key</span>
+            </div>
+            <input class="w-full h-14 pl-12 pr-12 bg-white/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-slate-900 dark:text-white placeholder:text-slate-400" id="password" name="password" placeholder="••••••••" type="password" required>
+            <button class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-primary transition-colors" type="button" onclick="togglePassword('password')">
+              <span class="material-symbols-outlined text-xl">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center px-1">
+          <label class="flex items-center cursor-pointer group">
+            <div class="relative flex items-center">
+              <input class="peer sr-only" type="checkbox">
+              <div class="w-5 h-5 bg-white/50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg transition-all peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-[16px] scale-0 peer-checked:scale-100 transition-transform">check</span>
+              </div>
+            </div>
+            <span class="ml-3 text-sm text-slate-600 dark:text-slate-400 font-medium">Keep me signed in</span>
+          </label>
+        </div>
+
+        <button class="tactile-button w-full h-14 bg-gradient-to-r from-primary to-indigo-600 text-white font-semibold rounded-full flex items-center justify-center gap-2 group" type="submit">
+          <span>Login to Account</span>
+          <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+        </button>
+      </form>
+
+      <div class="relative my-8">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+        </div>
+        <div class="relative flex justify-center text-xs uppercase tracking-tighter">
+          <span class="bg-transparent px-4 text-slate-400 font-medium">Quick Access</span>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <button class="flex-1 h-14 flex items-center justify-center bg-white/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm" type="button">
+          <img alt="Google" class="h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdSM0k02AsKvc6sUj0MuQgKfiNk_9syQNY5jn0GIyPBPbkjEPV0yHeYNhFkF1MJEwOymyLZ20GG9r0HuKYCnYFRppbWDQ_PymNN7dyZbOl0vWl91KmZGs3ULG7N7TKasDBKLyrGOG-H8noAiehWoKkXqA0iEslphbtsVV6sgQ-oi67HMmEVrhD1C7jPtZuZcriGNkdrT1FfxnHZeOmz2NPln7a4eS1cEaTeMDECo7GANMMSfY_HGTXa9sNs_bmtD3eTEL-Mk6025hT">
+        </button>
+        <button class="flex-1 h-14 flex items-center justify-center bg-white/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm" type="button">
+          <span class="material-symbols-outlined text-slate-900 dark:text-white text-2xl">ios</span>
+        </button>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          New user?
+          <a class="text-primary font-bold hover:text-accent transition-colors ml-1" href="signup.html">Join the community</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 w-32 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto opacity-20"></div>
+  </div>
+
+  <script>
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.type = field.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+  <script src="public/js/login.js"></script>
+</body>
+</html>
