@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "lab05-graphql-movies",
+		"name": "Lab05 - GraphQL Movies API",
+		"description": "COMP3133 Lab 05 - GraphQL Movies API with Apollo Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Get All Movies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetAllMovies {\n  movies {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				},
+				{
+					"name": "Get Movie By ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetMovieById($id: ID!) {\n  movie(id: $id) {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": "{\n  \"id\": \"1\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				},
+				{
+					"name": "Get Movies By Director",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetMoviesByDirector($director_name: String!) {\n  moviesByDirector(director_name: $director_name) {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": "{\n  \"director_name\": \"Christopher Nolan\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Mutations",
+			"item": [
+				{
+					"name": "Add New Movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddMovie($input: MovieInput!) {\n  addMovie(input: $input) {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"name\": \"Interstellar\",\n    \"director_name\": \"Christopher Nolan\",\n    \"production_house\": \"Paramount Pictures\",\n    \"release_date\": \"2014-11-07\",\n    \"rating\": 8.7\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				},
+				{
+					"name": "Update Movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateMovie($id: ID!, $input: MovieUpdateInput!) {\n  updateMovie(id: $id, input: $input) {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": "{\n  \"id\": \"1\",\n  \"input\": {\n    \"rating\": 9.5\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				},
+				{
+					"name": "Delete Movie By ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteMovie($id: ID!) {\n  deleteMovie(id: $id) {\n    id\n    name\n    director_name\n    production_house\n    release_date\n    rating\n  }\n}",
+								"variables": "{\n  \"id\": \"5\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/graphql",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "4000",
+							"path": ["graphql"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
