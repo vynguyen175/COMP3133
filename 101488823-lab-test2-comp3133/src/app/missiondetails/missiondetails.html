@@ -1,0 +1,78 @@
+@if (loading()) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+} @else if (mission()) {
+  <div class="details-container">
+    <h1 class="page-title">SpaceX Mission Details</h1>
+
+    <mat-card class="details-card">
+      <div class="details-header">
+        @if (mission()!.links.mission_patch) {
+          <img [src]="mission()!.links.mission_patch"
+            [alt]="mission()!.mission_name" class="patch-large">
+        }
+        <div class="header-info">
+          <h2 class="mission-title">Mission - {{ mission()!.mission_name }}</h2>
+          <p>Name: {{ mission()!.mission_name }}</p>
+          <p>Flight Number: {{ mission()!.flight_number }}</p>
+          <p>Launch Year: {{ mission()!.launch_year }}</p>
+          <p>Launch Date: {{ mission()!.launch_date_local | date:'longDate' }}</p>
+          <p>Launch Success:
+            @switch (mission()!.launch_success) {
+              @case (true) { Yes }
+              @case (false) { No }
+              @default { N/A }
+            }
+          </p>
+
+          <h3 class="section-title">Rocket</h3>
+          <p>Name: {{ mission()!.rocket.rocket_name }}</p>
+          <p>Type: {{ mission()!.rocket.rocket_type }}</p>
+
+          @if (mission()!.launch_site) {
+            <h3 class="section-title">Launch Site</h3>
+            <p>Name: {{ mission()!.launch_site.site_name_long }}</p>
+          }
+        </div>
+      </div>
+
+      <mat-card-content>
+        <h3 class="section-title">Launch Details</h3>
+        @if (mission()!.details) {
+          <p class="details-text">{{ mission()!.details }}</p>
+        } @else {
+          <p class="details-text"><em>No details available for this mission.</em></p>
+        }
+
+        <h3 class="section-title">More Info on Launch Details</h3>
+        <div class="links">
+          @if (mission()!.links.article_link) {
+            <a [href]="mission()!.links.article_link" target="_blank" mat-icon-button>
+              <mat-icon>article</mat-icon>
+            </a>
+          }
+          @if (mission()!.links.wikipedia) {
+            <a [href]="mission()!.links.wikipedia" target="_blank" mat-icon-button>
+              <mat-icon>language</mat-icon>
+            </a>
+          }
+          @if (mission()!.links.video_link) {
+            <a [href]="mission()!.links.video_link" target="_blank" mat-icon-button>
+              <mat-icon>ondemand_video</mat-icon>
+            </a>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="back-button">
+      <button mat-raised-button color="primary" routerLink="/missions">Back to Mission List</button>
+    </div>
+  </div>
+} @else {
+  <div class="no-data">
+    <p>Mission not found.</p>
+    <button mat-raised-button color="primary" routerLink="/missions">Back to Mission List</button>
+  </div>
+}

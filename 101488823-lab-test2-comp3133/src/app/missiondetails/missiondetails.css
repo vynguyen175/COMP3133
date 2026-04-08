@@ -1,0 +1,82 @@
+.page-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.details-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.details-card {
+  padding: 24px;
+}
+
+.details-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.patch-large {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.header-info {
+  flex: 1;
+}
+
+.mission-title {
+  color: #e65100;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  color: #e65100;
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.details-text {
+  color: #555;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.links a {
+  color: #1565c0;
+}
+
+.back-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.header-info p {
+  margin: 4px 0;
+  color: #555;
+}

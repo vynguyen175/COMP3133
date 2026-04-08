@@ -1,0 +1,31 @@
+<h1 class="page-title">SpaceX Mission Launch List</h1>
+
+@if (loading()) {
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+} @else {
+  <div class="mission-list">
+    @for (mission of missions(); track mission.flight_number) {
+      <mat-card class="mission-card" [routerLink]="['/missions', mission.flight_number]">
+        <mat-card-header>
+          @if (mission.links.mission_patch_small) {
+            <img mat-card-avatar [src]="mission.links.mission_patch_small" [alt]="mission.mission_name" class="mission-patch">
+          }
+          <mat-card-title class="mission-name">{{ mission.mission_name }}</mat-card-title>
+          <mat-card-subtitle>{{ mission.launch_year }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          @if (mission.details) {
+            <p class="details">{{ mission.details }}</p>
+          } @else {
+            <p class="details"><em>No details available</em></p>
+          }
+          <div class="rocket-info">
+            <strong>Rocket:</strong> {{ mission.rocket.rocket_name | uppercase }} ({{ mission.rocket.rocket_type }})
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+}

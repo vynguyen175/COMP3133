@@ -1,0 +1,93 @@
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+}
+
+.year-select {
+  width: 250px;
+}
+
+.year-buttons {
+  margin-bottom: 24px;
+}
+
+.year-buttons h3 {
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.year-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.mission-card {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mission-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.patch-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 16px auto 0;
+  display: block;
+}
+
+.no-patch {
+  width: 150px;
+  height: 150px;
+  margin: 16px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  color: #999;
+  border-radius: 8px;
+}
+
+.mission-card h3 {
+  color: #333;
+  font-size: 16px;
+  margin-top: 12px;
+}
+
+.mission-card p {
+  font-size: 13px;
+  margin: 4px 0;
+  color: #666;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 30px;
+  color: #999;
+  font-size: 18px;
+}
