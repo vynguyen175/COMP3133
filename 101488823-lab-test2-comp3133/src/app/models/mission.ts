@@ -1,6 +1,7 @@
 export interface Mission {
   flight_number: number;
   mission_name: string;
+  mission_id: string[];
   launch_year: string;
   launch_date_local: string;
   details: string;
@@ -15,6 +16,11 @@ export interface Mission {
   rocket: {
     rocket_name: string;
     rocket_type: string;
+    first_stage: {
+      cores: {
+        land_success: boolean | null;
+      }[];
+    };
   };
   launch_site: {
     site_name_long: string;

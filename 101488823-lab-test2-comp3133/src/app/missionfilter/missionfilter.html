@@ -1,59 +1,91 @@
 <h1 class="page-title">Filter Missions by Launch Year</h1>
 
-<div class="filter-section">
-  <mat-form-field appearance="outline" class="year-select">
-    <mat-label>Select Launch Year</mat-label>
-    <mat-select [formControl]="yearControl">
-      @for (year of years; track year) {
-        <mat-option [value]="year">{{ year }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-</div>
+<div class="filters-container">
+  <div class="filter-sidebar">
+    <div class="filter-section">
+      <mat-form-field appearance="outline" class="year-select">
+        <mat-label>Select Launch Year</mat-label>
+        <mat-select [formControl]="yearControl">
+          @for (year of years; track year) {
+            <mat-option [value]="year">{{ year }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-<div class="year-buttons">
-  <h3>Or click a year:</h3>
-  <div class="year-grid">
-    @for (year of years; track year) {
-      <button mat-raised-button
-        [color]="selectedYear() === year ? 'primary' : ''"
-        (click)="filterByYear(year)">
-        {{ year }}
-      </button>
-    }
-  </div>
-</div>
-
-@if (loading()) {
-  <div class="spinner-container">
-    <mat-spinner></mat-spinner>
-  </div>
-} @else if (missions().length > 0) {
-  <div class="mission-grid">
-    @for (mission of missions(); track mission.flight_number) {
-      <mat-card class="mission-card" [routerLink]="['/missions', mission.flight_number]">
-        @if (mission.links.mission_patch_small) {
-          <img [src]="mission.links.mission_patch_small"
-            [alt]="mission.mission_name" class="patch-image">
-        } @else {
-          <div class="no-patch">No Patch</div>
+    <div class="year-buttons">
+      <h3>Launch Date</h3>
+      <div class="year-grid">
+        @for (year of years; track year) {
+          <button mat-raised-button
+            [color]="selectedYear() === year ? 'primary' : ''"
+            (click)="filterByYear(year)">
+            {{ year }}
+          </button>
         }
-        <mat-card-content>
-          <h3>{{ mission.mission_name }} #{{ mission.flight_number }}</h3>
-          <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
-          <p><strong>Successful Launch:</strong>
-            @switch (mission.launch_success) {
-              @case (true) { Yes }
-              @case (false) { No }
-              @default { No Data }
+      </div>
+    </div>
+
+    <div class="bool-filter">
+      <h3>Successful Launch</h3>
+      <div class="bool-buttons">
+        <button mat-raised-button
+          [color]="selectedLaunchSuccess() === 'true' ? 'primary' : ''"
+          (click)="filterByLaunchSuccess('true')">true</button>
+        <button mat-raised-button
+          [color]="selectedLaunchSuccess() === 'false' ? 'primary' : ''"
+          (click)="filterByLaunchSuccess('false')">false</button>
+      </div>
+    </div>
+
+    <div class="bool-filter">
+      <h3>Successful Land</h3>
+      <div class="bool-buttons">
+        <button mat-raised-button
+          [color]="selectedLandSuccess() === 'true' ? 'primary' : ''"
+          (click)="filterByLandSuccess('true')">true</button>
+        <button mat-raised-button
+          [color]="selectedLandSuccess() === 'false' ? 'primary' : ''"
+          (click)="filterByLandSuccess('false')">false</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-results">
+    @if (loading()) {
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    } @else if (missions().length > 0) {
+      <div class="mission-grid">
+        @for (mission of missions(); track mission.flight_number) {
+          <mat-card class="mission-card" [routerLink]="['/missions', mission.flight_number]">
+            @if (mission.links.mission_patch_small) {
+              <img [src]="mission.links.mission_patch_small"
+                [alt]="mission.mission_name" class="patch-image">
+            } @else {
+              <div class="no-patch">No Patch</div>
             }
-          </p>
-        </mat-card-content>
-      </mat-card>
+            <mat-card-content>
+              <h3>{{ mission.mission_name }} #{{ mission.flight_number }}</h3>
+              <p><strong>Mission Ids:</strong> {{ mission.mission_id.length > 0 ? mission.mission_id.join(', ') : '-' }}</p>
+              <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
+              <p><strong>Successful Launch:</strong>
+                @switch (mission.launch_success) {
+                  @case (true) { Yes }
+                  @case (false) { No }
+                  @default { No Data }
+                }
+              </p>
+              <p><strong>Successful Landing:</strong> {{ getLandSuccess(mission) }}</p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    } @else if (selectedYear() || selectedLaunchSuccess() !== null || selectedLandSuccess() !== null) {
+      <div class="no-results">
+        <p>No missions found for the selected filters.</p>
+      </div>
     }
   </div>
-} @else if (selectedYear()) {
-  <div class="no-results">
-    <p>No missions found for {{ selectedYear() }}.</p>
-  </div>
-}
+</div>
