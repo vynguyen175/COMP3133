@@ -1,59 +1,78 @@
-# 101488823LabTest2Comp3133
+# 101488823 - Lab Test 2 - COMP3133
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+## SpaceX Mission Tracker
 
-## Development server
+An Angular application that displays SpaceX launch data using the SpaceX REST API. Users can browse all missions, filter by launch year and success status, and view detailed information about each mission.
 
-To start a local development server, run:
+## Features Implemented
 
+- **Mission List** - Displays all SpaceX launches with mission patch, name, year, details, and rocket info
+- **Mission Filter** - Filter missions by launch year, successful launch (true/false), and successful landing (true/false) using the SpaceX API query parameters
+- **Mission Details** - View full details of a selected mission including rocket info, launch site, launch date, and links to articles/Wikipedia/videos
+- **SpaceX API Service** - Angular service using HttpClient to fetch data from the SpaceX v3 REST API
+- **TypeScript Interfaces** - Strongly typed Mission interface for API response data
+- **Angular Material UI** - Material toolbar, cards, buttons, icons, select dropdown, spinner, and form fields
+- **Angular Signals** - All component state managed with Angular signals
+- **Reactive Forms** - Year selection dropdown uses FormControl with ReactiveFormsModule
+- **New Control Flow** - Uses @for, @if, @else, and @switch throughout all templates
+- **Pipes** - UpperCasePipe for rocket names, DatePipe for launch dates
+
+## Screenshots
+
+### Mission List Page
+Displays all SpaceX launches in a scrollable card list. Each card shows the mission patch, mission name, launch year, details, and rocket information.
+
+![Mission List](screenshots/Screenshot%202026-04-08%20170006.png)
+
+### Mission Filter Page
+Sidebar with year buttons, successful launch filter, and successful landing filter. Results display in a grid with mission patches and key info.
+
+![Mission Filter](screenshots/Screenshot%202026-04-08%20170032.png)
+
+### Mission Details Page
+Shows full mission details including the large mission patch, mission name, flight number, launch year, launch date, launch success status, rocket name and type, launch site, launch details text, and links to external resources.
+
+![Mission Details](screenshots/Screenshot%202026-04-08%20170044.png)
+
+## Instructions to Run the Project
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
+
+### Steps
+
+1. Clone the repository:
 ```bash
-ng serve
+git clone https://github.com/vynguyen175/COMP3133.git
+cd COMP3133/101488823-lab-test2-comp3133
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. Run the development server:
 ```bash
-ng generate --help
+npx ng serve
 ```
 
-## Building
+4. Open your browser and navigate to `http://localhost:4200/`
 
-To build the project run:
+## Live Deployment
 
-```bash
-ng build
-```
+The application is deployed on Vercel: [https://101488823-lab-test2-comp3133.vercel.app](https://101488823-lab-test2-comp3133.vercel.app)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## API Reference
 
-## Running unit tests
+- All launches: `https://api.spacexdata.com/v3/launches`
+- Filter by year: `https://api.spacexdata.com/v3/launches?launch_year=2016`
+- Mission details: `https://api.spacexdata.com/v3/launches/{flight_number}`
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Tech Stack
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Angular 21
+- Angular Material
+- TypeScript
+- SpaceX REST API v3
