@@ -1,0 +1,84 @@
+<div class="employee-list-container">
+  <div class="page-header">
+    <h2>Employees</h2>
+    <a routerLink="/employees/add" class="btn-add">+ Add Employee</a>
+  </div>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchDepartment"
+      placeholder="Filter by department..."
+      (keyup.enter)="searchEmployees()"
+    />
+    <input
+      type="text"
+      [(ngModel)]="searchDesignation"
+      placeholder="Filter by designation..."
+      (keyup.enter)="searchEmployees()"
+    />
+    <button class="btn-search" (click)="searchEmployees()">Search</button>
+    <button class="btn-clear" (click)="clearSearch()">Clear</button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (loading) {
+    <div class="loading">Loading employees...</div>
+  } @else if (employees.length === 0) {
+    <div class="empty-state">
+      <p>No employees found.</p>
+    </div>
+  } @else {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (emp of employees; track emp._id) {
+            <tr>
+              <td>
+                <div class="avatar">
+                  @if (emp.employee_photo) {
+                    <img [src]="emp.employee_photo" [alt]="emp.first_name" />
+                  } @else {
+                    <span>{{ emp.first_name[0] }}{{ emp.last_name[0] }}</span>
+                  }
+                </div>
+              </td>
+              <td class="name-cell">{{ emp.first_name }} {{ emp.last_name }}</td>
+              <td>{{ emp.email }}</td>
+              <td>{{ emp.designation }}</td>
+              <td><span class="badge">{{ emp.department }}</span></td>
+              <td>{{ emp.salary | currency }}</td>
+              <td>{{ emp.date_of_joining | date:'mediumDate' }}</td>
+              <td class="actions-cell">
+                <button class="btn-icon view" (click)="viewEmployee(emp._id)" title="View">
+                  &#128065;
+                </button>
+                <button class="btn-icon edit" (click)="editEmployee(emp._id)" title="Edit">
+                  &#9998;
+                </button>
+                <button class="btn-icon delete" (click)="deleteEmployee(emp._id, emp.first_name + ' ' + emp.last_name)" title="Delete">
+                  &#128465;
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

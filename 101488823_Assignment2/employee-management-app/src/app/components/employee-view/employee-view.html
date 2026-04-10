@@ -1,0 +1,63 @@
+<div class="view-container">
+  <div class="view-card">
+    <div class="view-header">
+      <h2>Employee Details</h2>
+      <a routerLink="/employees" class="btn-back">Back to List</a>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
+
+    @if (loading) {
+      <div class="loading">Loading employee details...</div>
+    } @else if (employee) {
+      <div class="employee-profile">
+        <div class="profile-photo">
+          @if (employee.employee_photo) {
+            <img [src]="employee.employee_photo" [alt]="employee.first_name" />
+          } @else {
+            <div class="avatar-placeholder">
+              {{ employee.first_name[0] }}{{ employee.last_name[0] }}
+            </div>
+          }
+        </div>
+
+        <h3 class="employee-name">{{ employee.first_name }} {{ employee.last_name }}</h3>
+        <span class="employee-designation">{{ employee.designation }}</span>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <label>Email</label>
+            <span>{{ employee.email }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Gender</label>
+            <span>{{ employee.gender || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Department</label>
+            <span class="badge">{{ employee.department }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Salary</label>
+            <span>{{ employee.salary | currency }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Date of Joining</label>
+            <span>{{ employee.date_of_joining | date:'longDate' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Created</label>
+            <span>{{ employee.created_at | date:'medium' }}</span>
+          </div>
+        </div>
+
+        <div class="view-actions">
+          <a [routerLink]="['/employees/edit', employee._id]" class="btn-edit">Edit Employee</a>
+          <a routerLink="/employees" class="btn-back-list">Back to List</a>
+        </div>
+      </div>
+    }
+  </div>
+</div>

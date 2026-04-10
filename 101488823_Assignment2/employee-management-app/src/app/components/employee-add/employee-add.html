@@ -1,0 +1,100 @@
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2>Add New Employee</h2>
+      <a routerLink="/employees" class="btn-back">Back to List</a>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first_name">First Name *</label>
+          <input id="first_name" type="text" formControlName="first_name" placeholder="First name" />
+          @if (employeeForm.get('first_name')?.invalid && employeeForm.get('first_name')?.touched) {
+            <span class="field-error">First name is required</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name *</label>
+          <input id="last_name" type="text" formControlName="last_name" placeholder="Last name" />
+          @if (employeeForm.get('last_name')?.invalid && employeeForm.get('last_name')?.touched) {
+            <span class="field-error">Last name is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input id="email" type="email" formControlName="email" placeholder="Email address" />
+          @if (employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched) {
+            <span class="field-error">Valid email is required</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" formControlName="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="designation">Designation *</label>
+          <input id="designation" type="text" formControlName="designation" placeholder="Job title" />
+          @if (employeeForm.get('designation')?.invalid && employeeForm.get('designation')?.touched) {
+            <span class="field-error">Designation is required</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="department">Department *</label>
+          <input id="department" type="text" formControlName="department" placeholder="Department" />
+          @if (employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched) {
+            <span class="field-error">Department is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="salary">Salary *</label>
+          <input id="salary" type="number" formControlName="salary" placeholder="Minimum 1000" />
+          @if (employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched) {
+            <span class="field-error">Salary must be at least 1000</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="date_of_joining">Date of Joining *</label>
+          <input id="date_of_joining" type="date" formControlName="date_of_joining" />
+          @if (employeeForm.get('date_of_joining')?.invalid && employeeForm.get('date_of_joining')?.touched) {
+            <span class="field-error">Date of joining is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="employee_photo">Profile Photo</label>
+        <input id="employee_photo" type="file" accept="image/*" (change)="onFileChange($event)" class="file-input" />
+        @if (photoPreview) {
+          <div class="photo-preview">
+            <img [src]="photoPreview" alt="Preview" />
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="employeeForm.invalid || loading">
+          {{ loading ? 'Adding...' : 'Add Employee' }}
+        </button>
+        <a routerLink="/employees" class="btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

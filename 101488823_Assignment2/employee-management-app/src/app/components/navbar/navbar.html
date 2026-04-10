@@ -1,0 +1,13 @@
+@if (authService.isLoggedIn()) {
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/employees">Employee Manager</a>
+    </div>
+    <div class="navbar-links">
+      <a routerLink="/employees" class="nav-link">Employees</a>
+      <a routerLink="/employees/add" class="nav-link">Add Employee</a>
+      <span class="nav-user">{{ authService.getUser()?.username }}</span>
+      <button class="btn-logout" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+}
