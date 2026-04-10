@@ -39,9 +39,25 @@ export class EmployeeAdd {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64 = reader.result as string;
-      this.photoPreview = base64;
-      this.employeeForm.patchValue({ employee_photo: base64 });
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxSize = 200;
+        let width = img.width;
+        let height = img.height;
+        if (width > height) {
+          if (width > maxSize) { height *= maxSize / width; width = maxSize; }
+        } else {
+          if (height > maxSize) { width *= maxSize / height; height = maxSize; }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
+        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+        this.photoPreview = compressed;
+        this.employeeForm.patchValue({ employee_photo: compressed });
+      };
+      img.src = reader.result as string;
     };
     reader.readAsDataURL(file);
   }
