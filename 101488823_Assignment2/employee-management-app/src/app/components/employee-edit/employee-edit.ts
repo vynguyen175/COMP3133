@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
@@ -21,7 +21,8 @@ export class EmployeeEdit implements OnInit {
     private fb: FormBuilder,
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.employeeForm = this.fb.group({
       first_name: ['', Validators.required],
@@ -60,10 +61,12 @@ export class EmployeeEdit implements OnInit {
         });
         this.photoPreview = emp.employee_photo;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.errorMessage = err.message;
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -108,11 +111,13 @@ export class EmployeeEdit implements OnInit {
     this.employeeService.updateEmployee(this.employeeId, formValue).subscribe({
       next: () => {
         this.saving = false;
+        this.cdr.detectChanges();
         this.router.navigate(['/employees']);
       },
       error: (err) => {
         this.saving = false;
         this.errorMessage = err.message || 'Failed to update employee.';
+        this.cdr.detectChanges();
       }
     });
   }

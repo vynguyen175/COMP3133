@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
@@ -18,7 +18,8 @@ export class EmployeeAdd {
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.employeeForm = this.fb.group({
       first_name: ['', Validators.required],
@@ -73,11 +74,13 @@ export class EmployeeAdd {
     this.employeeService.addEmployee(formValue).subscribe({
       next: () => {
         this.loading = false;
+        this.cdr.detectChanges();
         this.router.navigate(['/employees']);
       },
       error: (err) => {
         this.loading = false;
         this.errorMessage = err.message || 'Failed to add employee.';
+        this.cdr.detectChanges();
       }
     });
   }

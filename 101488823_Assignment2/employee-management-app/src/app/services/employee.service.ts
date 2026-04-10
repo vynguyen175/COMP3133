@@ -8,8 +8,7 @@ import {
   UPDATE_EMPLOYEE,
   DELETE_EMPLOYEE
 } from '../graphql/graphql.queries';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,51 +16,64 @@ import { map } from 'rxjs/operators';
 export class EmployeeService {
   constructor(private apollo: Apollo, private ngZone: NgZone) {}
 
+  private wrapQuery<T>(promise: Promise<any>, extract: (data: any) => T): Observable<T> {
+    return new Observable<T>(subscriber => {
+      promise.then(
+        result => {
+          this.ngZone.run(() => {
+            subscriber.next(extract(result.data));
+            subscriber.complete();
+          });
+        },
+        error => {
+          this.ngZone.run(() => {
+            subscriber.error(error);
+            subscriber.complete();
+          });
+        }
+      );
+    });
+  }
+
   getAllEmployees(): Observable<any[]> {
-    return from(
-      this.apollo.client.query({ query: GET_ALL_EMPLOYEES, fetchPolicy: 'network-only' })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.getAllEmployees);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.query({ query: GET_ALL_EMPLOYEES, fetchPolicy: 'network-only' }),
+      data => data.getAllEmployees
+    );
   }
 
   getEmployeeById(eid: string): Observable<any> {
-    return from(
-      this.apollo.client.query({ query: SEARCH_EMPLOYEE_BY_ID, variables: { eid }, fetchPolicy: 'network-only' })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.searchEmployeeById);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.query({ query: SEARCH_EMPLOYEE_BY_ID, variables: { eid }, fetchPolicy: 'network-only' }),
+      data => data.searchEmployeeById
+    );
   }
 
   searchEmployees(designation?: string, department?: string): Observable<any[]> {
-    return from(
-      this.apollo.client.query({ query: SEARCH_EMPLOYEE_BY_DESIGNATION_OR_DEPARTMENT, variables: { designation, department }, fetchPolicy: 'network-only' })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.searchEmployeeByDesignationOrDepartment);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.query({ query: SEARCH_EMPLOYEE_BY_DESIGNATION_OR_DEPARTMENT, variables: { designation, department }, fetchPolicy: 'network-only' }),
+      data => data.searchEmployeeByDesignationOrDepartment
+    );
   }
 
   addEmployee(employee: any): Observable<any> {
-    return from(
-      this.apollo.client.mutate({ mutation: ADD_EMPLOYEE, variables: employee })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.addEmployee);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.mutate({ mutation: ADD_EMPLOYEE, variables: employee }),
+      data => data.addEmployee
+    );
   }
 
   updateEmployee(eid: string, employee: any): Observable<any> {
-    return from(
-      this.apollo.client.mutate({ mutation: UPDATE_EMPLOYEE, variables: { eid, ...employee } })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.updateEmployee);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.mutate({ mutation: UPDATE_EMPLOYEE, variables: { eid, ...employee } }),
+      data => data.updateEmployee
+    );
   }
 
   deleteEmployee(eid: string): Observable<any> {
-    return from(
-      this.apollo.client.mutate({ mutation: DELETE_EMPLOYEE, variables: { eid } })
-    ).pipe(map((result: any) => {
-      return this.ngZone.run(() => result.data.deleteEmployee);
-    }));
+    return this.wrapQuery(
+      this.apollo.client.mutate({ mutation: DELETE_EMPLOYEE, variables: { eid } }),
+      data => data.deleteEmployee
+    );
   }
 }

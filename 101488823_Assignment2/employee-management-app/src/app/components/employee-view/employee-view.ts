@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
@@ -16,7 +16,8 @@ export class EmployeeView implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -25,10 +26,12 @@ export class EmployeeView implements OnInit {
       next: (emp) => {
         this.employee = emp;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.errorMessage = err.message;
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

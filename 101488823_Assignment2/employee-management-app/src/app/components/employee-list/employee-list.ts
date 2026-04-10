@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
@@ -17,7 +17,7 @@ export class EmployeeList implements OnInit {
   searchDesignation = '';
   errorMessage = '';
 
-  constructor(private employeeService: EmployeeService, private router: Router) {}
+  constructor(private employeeService: EmployeeService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadEmployees();
@@ -30,10 +30,12 @@ export class EmployeeList implements OnInit {
       next: (data) => {
         this.employees = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.errorMessage = err.message;
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -52,10 +54,12 @@ export class EmployeeList implements OnInit {
       next: (data) => {
         this.employees = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.errorMessage = err.message;
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
