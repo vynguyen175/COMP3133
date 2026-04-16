@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>{{ environment.appTitle }}</h1>
+
+  <div class="env-card" [ngClass]="environment.envName.toLowerCase()">
+    <h2>Current Environment Details</h2>
+    <table>
+      <tr>
+        <td><strong>Environment Name</strong></td>
+        <td>{{ environment.envName }}</td>
+      </tr>
+      <tr>
+        <td><strong>Production Mode</strong></td>
+        <td>{{ environment.production ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr>
+        <td><strong>API URL</strong></td>
+        <td>{{ environment.apiUrl }}</td>
+      </tr>
+      <tr>
+        <td><strong>Debug Enabled</strong></td>
+        <td>{{ environment.enableDebug ? 'Yes' : 'No' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="instructions">
+    <h3>How to switch environments</h3>
+    <ul>
+      <li><code>ng serve</code> — Development (default)</li>
+      <li><code>ng serve --configuration=test</code> — TEST</li>
+      <li><code>ng serve --configuration=uat</code> — UAT</li>
+      <li><code>ng serve --configuration=production</code> — PROD</li>
+      <li><code>ng build --configuration=test</code> — Build for TEST</li>
+      <li><code>ng build --configuration=uat</code> — Build for UAT</li>
+      <li><code>ng build</code> — Build for PROD (default)</li>
+    </ul>
+  </div>
+</div>

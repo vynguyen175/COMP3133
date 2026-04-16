@@ -1,0 +1,76 @@
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 24px;
+}
+
+.env-card {
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.env-card.dev {
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+.env-card.test {
+  border-color: #ff9800;
+  background: #fff3e0;
+}
+
+.env-card.uat {
+  border-color: #2196f3;
+  background: #e3f2fd;
+}
+
+.env-card.prod {
+  border-color: #f44336;
+  background: #ffebee;
+}
+
+table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+td:first-child {
+  width: 40%;
+}
+
+code {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.instructions {
+  text-align: left;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px 24px;
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  padding: 4px 0;
+}
